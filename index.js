@@ -38,8 +38,9 @@ function mainPrompt() {
                     "View all Employees' Roles by ID",
                     "View all Employees' Roles by Department",
                     "View all Employees' Roles by Salary",
-                    "View all Employees' Information",
-                    "Exit"
+                    "View all Employees' Information by ID",
+                    "View all Employees' Information by Last Name",
+                    "Exit\n"
                 ]
             }
         ]).then(function(val){
@@ -60,13 +61,24 @@ function mainPrompt() {
                     viewRolesDepartment();
                 break;
 
-
-                case "View all Employees' Information":
-                    viewRoles();
+                case "View all Employees' Information by ID":
+                    viewEmployees();
                 break;
+
+                case "View all Employees' Information by Last Name":
+                    viewEmployeesName();
+                break;
+
+                case "Exit": {
+                    exitOption();
+                break;
+                }
             };
+            mainPrompt();
         });
 };
+
+mainPrompt();
 
 
 async function viewDepartments() {
@@ -105,6 +117,27 @@ async function viewRolesDepartment() {
     return rows;
 };
 
+async function viewEmployees() {
+    let query = "SELECT first_name, last_name, role_id, manager_id FROM employee ORDER BY role_id";
+    const rows = await database.query(query);
+    
+    console.table(rows);
 
-mainPrompt();
+    return rows;
+};
 
+async function viewEmployeesName() {
+    let query = "SELECT first_name, last_name, role_id, manager_id FROM employee ORDER BY last_name";
+    const rows = await database.query(query);
+    
+    console.table(rows);
+
+    return rows;
+};
+
+async function exitOption() {
+    process.on("exit", async function(code) {
+        await database.close();
+        return console.log(`About to exit with code ${code}`);
+    });
+};
