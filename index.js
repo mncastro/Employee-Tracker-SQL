@@ -35,7 +35,9 @@ function mainPrompt() {
                 name: "menu",
                 choices: [
                     "View all Company's Departments",
-                    "View all Employees' Roles",
+                    "View all Employees' Roles by ID",
+                    "View all Employees' Roles by Department",
+                    "View all Employees' Roles by Salary",
                     "View all Employees' Information",
                     "Exit"
                 ]
@@ -46,9 +48,18 @@ function mainPrompt() {
                     viewDepartments();
                 break;
 
-                case "View all Employees' Roles":
+                case "View all Employees' Roles by Id":
                     viewRoles();
                 break;
+
+                case "View all Employees' Roles by Salary":
+                    viewRolesSalary();
+                break;
+
+                case "View all Employees' Roles by Department":
+                    viewRolesDepartment();
+                break;
+
 
                 case "View all Employees' Information":
                     viewRoles();
@@ -67,14 +78,33 @@ async function viewDepartments() {
     return rows;
 };
 
-// function viewDepartments() {
-//     database.query('SELECT department.name, department.id FROM department ORDER BY department.name;',
-//     function(err, res) {
-//         if (err) throw err
-//         console.table(res)
-//         mainPrompt();
-//       });
-// };
+async function viewRoles() {
+    let query = "SELECT title, salary, department_id FROM role ORDER BY id";
+    const rows = await database.query(query);
+    
+    console.table(rows);
+
+    return rows;
+};
+
+async function viewRolesSalary() {
+    let query = "SELECT title, salary, department_id FROM role ORDER BY salary";
+    const rows = await database.query(query);
+    
+    console.table(rows);
+
+    return rows;
+};
+
+async function viewRolesDepartment() {
+    let query = "SELECT title, salary, department_id FROM role ORDER BY department_id";
+    const rows = await database.query(query);
+    
+    console.table(rows);
+
+    return rows;
+};
+
 
 mainPrompt();
 
