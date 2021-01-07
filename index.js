@@ -139,9 +139,3 @@ async function viewEmployeesName() {
     return rows;
 };
 
-async function exitOption() {
-    process.on("exit", async function(code) {
-        await database.close();
-        return console.log(`About to exit with code ${code}`);
-    });
-};
