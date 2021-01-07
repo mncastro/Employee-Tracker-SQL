@@ -40,6 +40,10 @@ function mainPrompt() {
                     "View all Employees' Roles by Salary",
                     "View all Employees' Information by ID",
                     "View all Employees' Information by Last Name",
+                    "Add a new Department",
+                    "Add a new Employee",
+                    "Add a new Employee Role",
+                    "Update an existing Employee Role",
                     "Exit\n"
                 ]
             }
