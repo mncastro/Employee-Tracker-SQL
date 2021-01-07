@@ -1,0 +1,25 @@
+{
+  "name": "Employee-Tracker-SQL",
+  "version": "1.0.0",
+  "description": "",
+  "main": "employees_db.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mncastro/Employee-Tracker-SQL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mncastro/Employee-Tracker-SQL/issues"
+  },
+  "homepage": "https://github.com/mncastro/Employee-Tracker-SQL#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
+}
