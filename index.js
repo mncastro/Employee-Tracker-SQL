@@ -73,6 +73,23 @@ function mainPrompt() {
                     viewEmployeesName();
                 break;
 
+                case "Add a new Department":
+                    addDepartment();
+                    newDepartment();
+                break;
+
+                case "Add a new Employee":
+                    addNewEmployee();
+                break;
+
+                case "Add a new Employee Role":
+                    addNewEmployeeRole();
+                break;
+
+                case "Update an existing Employee Role":
+                    updateEmployeeRole();
+                break;
+
                 case "Exit": {
                     exitOption();
                 break;
@@ -89,7 +106,7 @@ async function viewDepartments() {
     let query = "SELECT name, id FROM department ORDER BY id";
     const rows = await database.query(query);
     
-    console.table(rows);
+    console.table(['name', 'id'], rows);
 
     return rows;
 };
@@ -98,7 +115,7 @@ async function viewRoles() {
     let query = "SELECT title, salary, department_id FROM role ORDER BY id";
     const rows = await database.query(query);
     
-    console.table(rows);
+    console.table(['title', 'salary', 'department'], rows);
 
     return rows;
 };
@@ -107,7 +124,7 @@ async function viewRolesSalary() {
     let query = "SELECT title, salary, department_id FROM role ORDER BY salary";
     const rows = await database.query(query);
     
-    console.table(rows);
+    console.table(['title', 'salary', 'department_id'], rows);
 
     return rows;
 };
@@ -116,7 +133,7 @@ async function viewRolesDepartment() {
     let query = "SELECT title, salary, department_id FROM role ORDER BY department_id";
     const rows = await database.query(query);
     
-    console.table(rows);
+    console.table(['title', 'salary', 'department_id'], rows);
 
     return rows;
 };
@@ -125,7 +142,7 @@ async function viewEmployees() {
     let query = "SELECT first_name, last_name, role_id, manager_id FROM employee ORDER BY role_id";
     const rows = await database.query(query);
     
-    console.table(rows);
+    console.table(['first_name', 'last_name', 'role_id', 'manager_id'], rows);
 
     return rows;
 };
@@ -134,8 +151,33 @@ async function viewEmployeesName() {
     let query = "SELECT first_name, last_name, role_id, manager_id FROM employee ORDER BY last_name";
     const rows = await database.query(query);
     
-    console.table(rows);
+    console.table(['first_name', 'last_name', 'role_id', 'manager_id'], rows);
 
     return rows;
 };
+
+
+// const addDepartment = async () => {
+//     inquirer
+//       .prompt({
+//         name: "newDepartment",
+//         type: "input",
+//         message: "Whats the title of the new Department?",
+//       })
+//       .then(async (answer) => {
+//         try {
+//           const deptQuery = `INSERT INTO department (name) VALUES (?);`;
+//           const deptData = await database.query(deptQuery, answer.newDepartment);
+//           console.log(
+//             `${answer.newDepartment} has been added to the existing table`
+//           );
+//           console.table(deptQuery);
+//           mainPrompt();
+//         } catch (error) {
+//           console.log(error);
+//         }
+//       });
+//   };
+  
+
 
