@@ -75,7 +75,6 @@ function mainPrompt() {
 
                 case "Add a new Department":
                     addDepartment();
-                    newDepartment();
                 break;
 
                 case "Add a new Employee":
@@ -95,7 +94,7 @@ function mainPrompt() {
                 break;
                 }
             };
-            mainPrompt();
+            // mainPrompt();
         });
 };
 
@@ -157,27 +156,31 @@ async function viewEmployeesName() {
 };
 
 
-// const addDepartment = async () => {
-//     inquirer
-//       .prompt({
-//         name: "newDepartment",
-//         type: "input",
-//         message: "Whats the title of the new Department?",
-//       })
-//       .then(async (answer) => {
-//         try {
-//           const deptQuery = `INSERT INTO department (name) VALUES (?);`;
-//           const deptData = await database.query(deptQuery, answer.newDepartment);
-//           console.log(
-//             `${answer.newDepartment} has been added to the existing table`
-//           );
-//           console.table(deptQuery);
-//           mainPrompt();
-//         } catch (error) {
-//           console.log(error);
-//         }
-//       });
-//   };
+const addDepartment = async () => {
+    inquirer
+      .prompt({
+        name: "newDepartment",
+        type: "input",
+        message: "Whats the title of the new Department?",
+      })
+      .then(async (answer) => {
+        try {
+          const query = `INSERT INTO department (name) VALUES (?);`;
+          const data = await database.query(query, answer.newDepartment);
+          console.log(
+            `${answer.newDepartment} has been added to the existing table`
+          );
+          console.table(query);
+        } catch (error) {
+          console.log(error);
+        }
+      }).then(()=> {
+          mainPrompt();
+      })
+        .catch(error => {
+            console.log(error);
+        })
+  };
   
 
 
