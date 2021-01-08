@@ -165,7 +165,7 @@ const addDepartment = async () => {
       })
       .then(async (answer) => {
         try {
-          const query = `INSERT INTO department (name) VALUES (?);`;
+          const query = 'INSERT INTO department (name) VALUES (?);';
           const data = await database.query(query, answer.newDepartment);
           console.log(
             `${answer.newDepartment} has been added to the existing table`
@@ -180,7 +180,82 @@ const addDepartment = async () => {
         .catch(error => {
             console.log(error);
         })
-  };
-  
+};
+
+
+const addNewEmployeeRole = async () => {
+    inquirer
+      .prompt(
+        {
+            name: "newRole",
+            type: "input",
+            message: "Whats the title of the new employee role?",
+        },
+        {
+            name: "newSalary",
+            type: "input",
+            message: "Whats the new salary for the new employee role?",
+        }
+        )
+      .then(async (answer) => {
+        try {
+          const query = 'INSERT INTO role (title, salary) SET (?, ?);';
+          const data = await database.query(query, answer.newRole, answer.newSalary);
+          console.log(
+            `${answer.newRole} has been added to the existing table`
+          );
+          console.table(query);
+        } catch (error) {
+          console.log(error);
+        }
+      }).then(()=> {
+          mainPrompt();
+      })
+        .catch(error => {
+            console.log(error);
+        })
+};
+
+
+
+
+// const addNewEmployeeRole = async () => {
+//     const query = 'SELECT role.title AS newRoleTitle, role.salary AS newRoleSalary FROM role;';
+//     let data;
+//     try {
+//       data = await database.query(query);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     inquirer
+//       .prompt([
+//         {
+//           name: "newRoleTitle",
+//           type: "input",
+//           message: "What's the title of the new role?",
+//         },
+//         {
+//           name: "newRoleSalary",
+//           type: "input",
+//           message: "Enter the salary of the new role?",
+//         },
+//       ])
+//       .then(async (answer) => {
+//         try {
+//           const query = `INSERT INTO role SET ?;`;
+//           const data = await database.query(query, answer.newRoleTitle, answer.newRoleSalary);
+//           console.log(
+//             `${answer.newRoleTitle} has been added to the existing table`);
+//           console.table(query);
+//         } catch (error) {
+//           console.log(error);
+//         }
+//       }).then(()=> {
+//           mainPrompt();
+//       })
+//         .catch(error => {
+//             console.log(error);
+//         })
+// };
 
 
